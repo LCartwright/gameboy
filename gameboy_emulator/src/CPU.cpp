@@ -22,8 +22,8 @@ CPU::CPU() {
 	pA = &A;
 	pF = &F;
 
-	BC = 0xFFFF;
-	//BC = 0x0013;
+	//BC = 0xFFFF;
+	BC = 0x0013;
 	pBC = &BC;
 	pB = &B;
 	pC = &C;
@@ -43,6 +43,12 @@ CPU::CPU() {
 
 	PC = 0x0000;
 	pPC = &PC;
+
+	//Interupt Pointers
+	pIME = &IME;
+	*pIME = false; //False by default?
+	pIF = &memory[0xFF0F];
+	pIE = &memory[0xFFFF];
 
 	flags = Flags(&F);
 
@@ -65,6 +71,44 @@ CPU::~CPU() {
 
 void CPU::fetch(){
 	decode(memory[*pPC]);
+}
+
+/* NOP 0x00 */
+void CPU::nop(){
+	++*pPC;
+	clock.cycle(CYCLE_4);
+}
+
+/* STOP 0x10 */
+void CPU::stop(){
+	//TODO
+	//Looks like this needs to be event based
+	//Loop until flag interupt?
+	++*pPC;
+	clock.cycle(CYCLE_4);
+}
+
+/* HALT 0x76 */
+void CPU::halt(){
+	//TODO
+	//Looks like this needs to be event based
+	//Loop until flag interupt?
+	++*pPC;
+	clock.cycle(CYCLE_4);
+}
+
+/* DI 0xF3 */
+void CPU::di(){
+	*pIME = false;
+	++*pPC;
+	clock.cycle(CYCLE_4);
+}
+
+/* EI 0xFB */
+void CPU::ei(){
+	*pIME = true;
+	++*pPC;
+	clock.cycle(CYCLE_4);
 }
 
 /* PUSH BC 0xC5 */
@@ -147,13 +191,196 @@ void CPU::pop_af(){
 	clock.cycle(CYCLE_12);
 }
 
+/* DEC BC 0x0B */
+void CPU::dec_bc(){
+	if(*pBC != 0){
+		--*pBC;
+	}
+	++pPC;
+	clock.cycle(CYCLE_8);
+}
+
+/* DEC DE 0x1B */
+void CPU::dec_de(){
+	if(*pDE != 0){
+		--*pDE;
+	}
+	++pPC;
+	clock.cycle(CYCLE_8);
+}
+
+/* DEC HL 0x2B */
+void CPU::dec_hl(){
+	if(*pHL != 0){
+		--*pHL;
+	}
+	++pPC;
+	clock.cycle(CYCLE_8);
+}
+
+/* DEC SP 0x3B */
+void CPU::dec_sp(){
+	if(*pSP != 0){
+		--*pSP;
+	}
+	++pPC;
+	clock.cycle(CYCLE_8);
+}
+
+/* INC BC 0x03 */
+void CPU::inc_bc(){
+	if(*pBC != 0xFFFF){
+		++*pBC;
+	}
+	++pPC;
+	clock.cycle(CYCLE_8);
+}
+
+/* INC DE 0x13 */
+void CPU::inc_de(){
+	if(*pDE != 0xFFFF){
+		++*pDE;
+	}
+	++pPC;
+	clock.cycle(CYCLE_8);
+}
+
+/* INC HL 0x23 */
+void CPU::inc_hl(){
+	if(*pHL != 0xFFFF){
+		++*pHL;
+	}
+	++pPC;
+	clock.cycle(CYCLE_8);
+}
+
+/* INC SP 0x33 */
+void CPU::inc_sp(){
+	if(*pSP != 0xFFFF){
+		++*pSP;
+	}
+	++pPC;
+	clock.cycle(CYCLE_8);
+}
+
+/* LOAD B, B 0x40 */
+void CPU::load_b_b(){
+	//B will always be B
+	++*pPC;
+	clock.cycle(CYCLE_4);
+}
+
+/* LOAD B, C 0x41 */
+void CPU::load_b_c(){
+	*pB = *pC;
+	++*pPC;
+	clock.cycle(CYCLE_4);
+}
+
+/* LOAD B, D 0x42 */
+void CPU::load_b_d(){
+	*pB = *pD;
+	++*pPC;
+	clock.cycle(CYCLE_4);
+}
+
+/* LOAD B, E 0x43 */
+void CPU::load_b_e(){
+	*pB = *pE;
+	++*pPC;
+	clock.cycle(CYCLE_4);
+}
+
+/* LOAD B, H 0x44 */
+void CPU::load_b_h(){
+	*pB = *pH;
+	++*pPC;
+	clock.cycle(CYCLE_4);
+}
+
+/* LOAD B, L 0x45 */
+void CPU::load_b_l(){
+	*pB = *pL;
+	++*pPC;
+	clock.cycle(CYCLE_4);
+}
+
+/* LOAD B, (HL) 0x46 */
+void CPU::load_b_hl(){
+	*pB = memory[*pHL];
+	++*pPC;
+	clock.cycle(CYCLE_8);
+}
+
+/* LOAD B, A 0x47 */
+void CPU::load_b_a(){
+	*pB = *pA;
+	++*pPC;
+	clock.cycle(CYCLE_4);
+}
+
+/* LOAD C, B 0x48 */
+void CPU::load_c_b(){
+	*pC = *pB;
+	++*pPC;
+	clock.cycle(CYCLE_4);
+}
+
+/* LOAD C, C 0x49 */
+void CPU::load_c_c(){
+	//C will always be C
+	++*pPC;
+	clock.cycle(CYCLE_4);
+}
+
+/* LOAD C, D 0x4A */
+void CPU::load_c_d(){
+	*pC = *pD;
+	++*pPC;
+	clock.cycle(CYCLE_4);
+}
+
+/* LOAD C, E 0x4B */
+void CPU::load_c_e(){
+	*pC = *pE;
+	++*pPC;
+	clock.cycle(CYCLE_4);
+}
+
+/* LOAD C, H 0x4C */
+void CPU::load_c_h(){
+	*pC = *pH;
+	++*pPC;
+	clock.cycle(CYCLE_4);
+}
+/* LOAD C, L 0x4D */
+void CPU::load_c_l(){
+	*pC = *pL;
+	++*pPC;
+	clock.cycle(CYCLE_4);
+}
+
+/* LOAD C, (HL) 0x4E */
+void CPU::load_c_hl(){
+	*pC = memory[*pHL];
+	++*pPC;
+	clock.cycle(CYCLE_8);
+}
+
+/* LOAD C, A 0x4F */
+void CPU::load_c_a(){
+	*pC = *pA;
+	++*pPC;
+	clock.cycle(CYCLE_4);
+}
+
 void CPU::decode(uint8_t opcode){
 	switch (opcode){
 		//00 - 0F
-		case 0x00:break;
+		case 0x00:nop();break;
 		case 0x01:break;
 		case 0x02:break;
-		case 0x03:break;
+		case 0x03:inc_bc();break;
 		case 0x04:break;
 		case 0x05:break;
 		case 0x06:break;
@@ -161,17 +388,17 @@ void CPU::decode(uint8_t opcode){
 		case 0x08:break;
 		case 0x09:break;
 		case 0x0A:break;
-		case 0x0B:break;
+		case 0x0B:dec_bc();break;
 		case 0x0C:break;
 		case 0x0D:break;
 		case 0x0E:break;
 		case 0x0F:break;
 
 		//10 - 1F
-		case 0x10:break;
+		case 0x10:stop();break;
 		case 0x11:break;
 		case 0x12:break;
-		case 0x13:break;
+		case 0x13:inc_de();break;
 		case 0x14:break;
 		case 0x15:break;
 		case 0x16:break;
@@ -179,7 +406,7 @@ void CPU::decode(uint8_t opcode){
 		case 0x18:break;
 		case 0x19:break;
 		case 0x1A:break;
-		case 0x1B:break;
+		case 0x1B:dec_de();break;
 		case 0x1C:break;
 		case 0x1D:break;
 		case 0x1E:break;
@@ -189,7 +416,7 @@ void CPU::decode(uint8_t opcode){
 		case 0x20:break;
 		case 0x21:break;
 		case 0x22:break;
-		case 0x23:break;
+		case 0x23:inc_hl();break;
 		case 0x24:break;
 		case 0x25:break;
 		case 0x26:break;
@@ -197,7 +424,7 @@ void CPU::decode(uint8_t opcode){
 		case 0x28:break;
 		case 0x29:break;
 		case 0x2A:break;
-		case 0x2B:break;
+		case 0x2B:dec_hl();break;
 		case 0x2C:break;
 		case 0x2D:break;
 		case 0x2E:break;
@@ -207,7 +434,7 @@ void CPU::decode(uint8_t opcode){
 		case 0x30:break;
 		case 0x31:break;
 		case 0x32:break;
-		case 0x33:break;
+		case 0x33:inc_sp();break;
 		case 0x34:break;
 		case 0x35:break;
 		case 0x36:break;
@@ -215,29 +442,29 @@ void CPU::decode(uint8_t opcode){
 		case 0x38:break;
 		case 0x39:break;
 		case 0x3A:break;
-		case 0x3B:break;
+		case 0x3B:dec_sp();break;
 		case 0x3C:break;
 		case 0x3D:break;
 		case 0x3E:break;
 		case 0x3F:break;
 
 		//40 - 4F
-		case 0x40:break;
-		case 0x41:break;
-		case 0x42:break;
-		case 0x43:break;
-		case 0x44:break;
-		case 0x45:break;
-		case 0x46:break;
-		case 0x47:break;
-		case 0x48:break;
-		case 0x49:break;
-		case 0x4A:break;
-		case 0x4B:break;
-		case 0x4C:break;
-		case 0x4D:break;
-		case 0x4E:break;
-		case 0x4F:break;
+		case 0x40:load_b_b();break;
+		case 0x41:load_b_c();break;
+		case 0x42:load_b_d();break;
+		case 0x43:load_b_e();break;
+		case 0x44:load_b_h();break;
+		case 0x45:load_b_l();break;
+		case 0x46:load_b_hl();break;
+		case 0x47:load_b_a();break;
+		case 0x48:load_c_b();break;
+		case 0x49:load_c_c();break;
+		case 0x4A:load_c_d();break;
+		case 0x4B:load_c_e();break;
+		case 0x4C:load_c_h();break;
+		case 0x4D:load_c_l();break;
+		case 0x4E:load_c_hl();break;
+		case 0x4F:load_c_a();break;
 
 		//50 - 5F
 		case 0x50:break;
@@ -282,7 +509,7 @@ void CPU::decode(uint8_t opcode){
 		case 0x73:break;
 		case 0x74:break;
 		case 0x75:break;
-		case 0x76:break;
+		case 0x76:halt();break;
 		case 0x77:break;
 		case 0x78:break;
 		case 0x79:break;
@@ -387,7 +614,7 @@ void CPU::decode(uint8_t opcode){
 		case 0xD0:break;
 		case 0xD1:pop_de();break;
 		case 0xD2:break;
-		case 0xD3:break;
+		case 0xD3:logger.log("D3 decoded, shoudn't occur");break;
 		case 0xD4:break;
 		case 0xD5:push_de();break;
 		case 0xD6:break;
@@ -395,27 +622,27 @@ void CPU::decode(uint8_t opcode){
 		case 0xD8:break;
 		case 0xD9:break;
 		case 0xDA:break;
-		case 0xDB:break;
+		case 0xDB:logger.log("DB decoded, shoudn't occur");break;
 		case 0xDC:break;
 		case 0xDD:break;
-		case 0xDE:break;
+		case 0xDE:logger.log("DE decoded, shoudn't occur");break;
 		case 0xDF:break;
 
 		//E0 - EF
 		case 0xE0:break;
 		case 0xE1:pop_hl();break;
 		case 0xE2:break;
-		case 0xE3:break;
-		case 0xE4:break;
+		case 0xE3:logger.log("E3 decoded, shoudn't occur");break;
+		case 0xE4:logger.log("E4 decoded, shoudn't occur");break;
 		case 0xE5:push_hl();break;
 		case 0xE6:break;
 		case 0xE7:break;
 		case 0xE8:break;
 		case 0xE9:break;
 		case 0xEA:break;
-		case 0xEB:break;
-		case 0xEC:break;
-		case 0xED:break;
+		case 0xEB:logger.log("EB decoded, shoudn't occur");break;
+		case 0xEC:logger.log("EC decoded, shoudn't occur");break;
+		case 0xED:logger.log("ED decoded, shoudn't occur");break;
 		case 0xEE:break;
 		case 0xEF:break;
 
@@ -423,17 +650,17 @@ void CPU::decode(uint8_t opcode){
 		case 0xF0:break;
 		case 0xF1:pop_af();break;
 		case 0xF2:break;
-		case 0xF3:break;
-		case 0xF4:break;
+		case 0xF3:di();break;
+		case 0xF4:logger.log("F4 decoded, shoudn't occur");break;
 		case 0xF5:push_af();break;
 		case 0xF6:break;
 		case 0xF7:break;
 		case 0xF8:break;
 		case 0xF9:break;
 		case 0xFA:break;
-		case 0xFB:break;
-		case 0xFC:break;
-		case 0xFD:break;
+		case 0xFB:ei();break;
+		case 0xFC:logger.log("FC decoded, shoudn't occur");break;
+		case 0xFD:logger.log("FD decoded, shoudn't occur");break;
 		case 0xFE:break;
 		case 0xFF:break;
 
