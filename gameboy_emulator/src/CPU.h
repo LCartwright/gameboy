@@ -18,6 +18,8 @@ class CPU {
 	static const int CYCLE_8 = 8;
 	static const int CYCLE_12 = 12;
 	static const int CYCLE_16 = 16;
+	static const int CYCLE_20 = 20;
+	static const int CYCLE_24 = 24;
 
 	union {
 		uint16_t AF;
@@ -119,6 +121,59 @@ class CPU {
 	void load_c_l();
 	void load_c_hl();
 	void load_c_a();
+
+	void load_d_b();
+	void load_d_c();
+	void load_d_d();
+	void load_d_e();
+	void load_d_h();
+	void load_d_l();
+	void load_d_hl();
+	void load_d_a();
+
+	void load_e_b();
+	void load_e_c();
+	void load_e_d();
+	void load_e_e();
+	void load_e_h();
+	void load_e_l();
+	void load_e_hl();
+	void load_e_a();
+
+	void load_h_b();
+	void load_h_c();
+	void load_h_d();
+	void load_h_e();
+	void load_h_h();
+	void load_h_l();
+	void load_h_hl();
+	void load_h_a();
+
+	void load_l_b();
+	void load_l_c();
+	void load_l_d();
+	void load_l_e();
+	void load_l_h();
+	void load_l_l();
+	void load_l_hl();
+	void load_l_a();
+
+	void load_hl_b();
+	void load_hl_c();
+	void load_hl_d();
+	void load_hl_e();
+	void load_hl_h();
+	void load_hl_l();
+	void load_hl_a();
+
+	void load_a_b();
+	void load_a_c();
+	void load_a_d();
+	void load_a_e();
+	void load_a_h();
+	void load_a_l();
+	void load_a_hl();
+	void load_a_a();
 
 public:
 	CPU();

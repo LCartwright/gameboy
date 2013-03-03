@@ -374,6 +374,334 @@ void CPU::load_c_a(){
 	clock.cycle(CYCLE_4);
 }
 
+/* LOAD D, B 0x50 */
+void CPU::load_d_b(){
+	*pD = *pB;
+	++*pPC;
+	clock.cycle(CYCLE_4);
+}
+
+/* LOAD D, C 0x51 */
+void CPU::load_d_c(){
+	*pD = *pC;
+	++*pPC;
+	clock.cycle(CYCLE_4);
+}
+
+/* LOAD D, D 0x52 */
+void CPU::load_d_d(){
+	//D will always be D
+	++*pPC;
+	clock.cycle(CYCLE_4);
+}
+
+/* LOAD D, E 0x53 */
+void CPU::load_d_e(){
+	*pD = *pE;
+	++*pPC;
+	clock.cycle(CYCLE_4);
+}
+
+/* LOAD D, H 0x54 */
+void CPU::load_d_h(){
+	*pD = *pH;
+	++*pPC;
+	clock.cycle(CYCLE_4);
+}
+
+/* LOAD D, L 0x55 */
+void CPU::load_d_l(){
+	*pD = *pL;
+	++*pPC;
+	clock.cycle(CYCLE_4);
+}
+
+/* LOAD D, (HL) 0x56 */
+void CPU::load_d_hl(){
+	*pD = memory[*pHL];
+	++*pPC;
+	clock.cycle(CYCLE_8);
+}
+
+/* LOAD D, A 0x57 */
+void CPU::load_d_a(){
+	*pD = *pA;
+	++*pPC;
+	clock.cycle(CYCLE_4);
+}
+
+/* LOAD E, B 0x58 */
+void CPU::load_e_b(){
+	*pE = *pB;
+	++*pPC;
+	clock.cycle(CYCLE_4);
+}
+
+/* LOAD E, C 0x59 */
+void CPU::load_e_c(){
+	*pE = *pC;
+	++*pPC;
+	clock.cycle(CYCLE_4);
+}
+
+/* LOAD E, D 0x5A */
+void CPU::load_e_d(){
+	*pE = *pD;
+	++*pPC;
+	clock.cycle(CYCLE_4);
+}
+
+/* LOAD E, E 0x5B */
+void CPU::load_e_e(){
+	//E will always be E
+	++*pPC;
+	clock.cycle(CYCLE_4);
+}
+
+/* LOAD E, H 0x5C */
+void CPU::load_e_h(){
+	*pE = *pH;
+	++*pPC;
+	clock.cycle(CYCLE_4);
+}
+
+/* LOAD E, L 0x5D */
+void CPU::load_e_l(){
+	*pE = *pL;
+	++*pPC;
+	clock.cycle(CYCLE_4);
+}
+
+/* LOAD E, (HL) 0x5E */
+void CPU::load_e_hl(){
+	*pE = memory[*pHL];
+	++*pPC;
+	clock.cycle(CYCLE_8);
+}
+
+/* LOAD E, A 0x5F */
+void CPU::load_e_a(){
+	*pE = *pA;
+	++*pPC;
+	clock.cycle(CYCLE_4);
+}
+
+/* LOAD H, B 0x60 */
+void CPU::load_h_b(){
+	*pH = *pB;
+	++*pPC;
+	clock.cycle(CYCLE_4);
+}
+
+/* LOAD H, C 0x61 */
+void CPU::load_h_c(){
+	*pH = *pC;
+	++*pPC;
+	clock.cycle(CYCLE_4);
+}
+
+/* LOAD H, D 0x62 */
+void CPU::load_h_d(){
+	*pH = *pD;
+	++*pPC;
+	clock.cycle(CYCLE_4);
+}
+
+/* LOAD H, E 0x63 */
+void CPU::load_h_e(){
+	*pH = *pE;
+	++*pPC;
+	clock.cycle(CYCLE_4);
+}
+
+/* LOAD H, H 0x64 */
+void CPU::load_h_h(){
+	//H will always be H
+	++*pPC;
+	clock.cycle(CYCLE_4);
+}
+
+/* LOAD H, L 0x65 */
+void CPU::load_h_l(){
+	*pH = *pL;
+	++*pPC;
+	clock.cycle(CYCLE_4);
+}
+
+/* LOAD H, (HL) 0x66 */
+void CPU::load_h_hl(){
+	*pH = memory[*pHL];
+	++*pPC;
+	clock.cycle(CYCLE_8);
+}
+
+/* LOAD H, A 0x67 */
+void CPU::load_h_a(){
+	*pH = *pA;
+	++*pPC;
+	clock.cycle(CYCLE_4);
+}
+
+/* LOAD L, B 0x68 */
+void CPU::load_l_b(){
+	*pL = *pB;
+	++*pPC;
+	clock.cycle(CYCLE_4);
+}
+
+/* LOAD L, C 0x69 */
+void CPU::load_l_c(){
+	*pL = *pC;
+	++*pPC;
+	clock.cycle(CYCLE_4);
+}
+
+/* LOAD L, D 0x6A */
+void CPU::load_l_d(){
+	*pL = *pD;
+	++*pPC;
+	clock.cycle(CYCLE_4);
+}
+
+/* LOAD L, E 0x6B */
+void CPU::load_l_e(){
+	*pL = *pE;
+	++*pPC;
+	clock.cycle(CYCLE_4);
+}
+
+/* LOAD L, H 0x6C */
+void CPU::load_l_h(){
+	*pL = *pH;
+	++*pPC;
+	clock.cycle(CYCLE_4);
+}
+
+/* LOAD L, L 0x6D */
+void CPU::load_l_l(){
+	//L will always be L
+	++*pPC;
+	clock.cycle(CYCLE_4);
+}
+
+/* LOAD L, HL 0x6E */
+void CPU::load_l_hl(){
+	*pL = memory[*pHL];
+	++*pPC;
+	clock.cycle(CYCLE_8);
+}
+
+/* LOAD L, 0x6F */
+void CPU::load_l_a(){
+	*pL = *pA;
+	++*pPC;
+	clock.cycle(CYCLE_4);
+}
+
+/* LOAD (HL), B 0x70 */
+void CPU::load_hl_b(){
+	*pHL = *pB;
+	++*pPC;
+	clock.cycle(CYCLE_8);
+}
+
+/* LOAD (HL), C 0x71 */
+void CPU::load_hl_c(){
+	*pHL = *pC;
+	++*pPC;
+	clock.cycle(CYCLE_8);
+}
+
+/* LOAD (HL), D 0x72 */
+void CPU::load_hl_d(){
+	*pHL = *pD;
+	++*pPC;
+	clock.cycle(CYCLE_8);
+}
+
+/* LOAD (HL), E 0x73 */
+void CPU::load_hl_e(){
+	*pHL = *pE;
+	++*pPC;
+	clock.cycle(CYCLE_8);
+}
+
+/* LOAD (HL), H 0x74 */
+void CPU::load_hl_h(){
+	*pHL = *pH;
+	++*pPC;
+	clock.cycle(CYCLE_8);
+}
+
+/* LOAD (HL), L 0x75 */
+void CPU::load_hl_l(){
+	*pHL = *pL;
+	++*pPC;
+	clock.cycle(CYCLE_8);
+}
+
+/* LOAD (HL), A 0x77 */
+void CPU::load_hl_a(){
+	*pHL = *pA;
+	++*pPC;
+	clock.cycle(CYCLE_8);
+}
+
+/* LOAD A, B 0x78 */
+void CPU::load_a_b(){
+	*pA = *pB;
+	++*pPC;
+	clock.cycle(CYCLE_4);
+}
+
+/* LOAD A, C 0x79 */
+void CPU::load_a_c(){
+	*pA = *pC;
+	++*pPC;
+	clock.cycle(CYCLE_4);
+}
+
+/* LOAD A, D 0x7A */
+void CPU::load_a_d(){
+	*pA = *pD;
+	++*pPC;
+	clock.cycle(CYCLE_4);
+}
+/* LOAD A, E 0x7B */
+void CPU::load_a_e(){
+	*pA = *pE;
+	++*pPC;
+	clock.cycle(CYCLE_4);
+}
+
+/* LOAD A, H 0x7C */
+void CPU::load_a_h(){
+	*pA = *pH;
+	++*pPC;
+	clock.cycle(CYCLE_4);
+}
+
+/* LOAD A, L 0x7D */
+void CPU::load_a_l(){
+	*pA = *pL;
+	++*pPC;
+	clock.cycle(CYCLE_4);
+}
+
+/* LOAD A, (HL) 0x7E */
+void CPU::load_a_hl(){
+	*pA = memory[*pHL];
+	++*pPC;
+	clock.cycle(CYCLE_8);
+}
+
+/* LOAD A, A 0x7F */
+void CPU::load_a_a(){
+	//A will always be A
+	++*pPC;
+	clock.cycle(CYCLE_4);
+}
+
 void CPU::decode(uint8_t opcode){
 	switch (opcode){
 		//00 - 0F
@@ -467,58 +795,58 @@ void CPU::decode(uint8_t opcode){
 		case 0x4F:load_c_a();break;
 
 		//50 - 5F
-		case 0x50:break;
-		case 0x51:break;
-		case 0x52:break;
-		case 0x53:break;
-		case 0x54:break;
-		case 0x55:break;
-		case 0x56:break;
-		case 0x57:break;
-		case 0x58:break;
-		case 0x59:break;
-		case 0x5A:break;
-		case 0x5B:break;
-		case 0x5C:break;
-		case 0x5D:break;
-		case 0x5E:break;
-		case 0x5F:break;
+		case 0x50:load_d_b();break;
+		case 0x51:load_d_c();break;
+		case 0x52:load_d_d();break;
+		case 0x53:load_d_e();break;
+		case 0x54:load_d_h();break;
+		case 0x55:load_d_l();break;
+		case 0x56:load_d_hl();break;
+		case 0x57:load_d_a();break;
+		case 0x58:load_e_b();break;
+		case 0x59:load_e_c();break;
+		case 0x5A:load_e_d();break;
+		case 0x5B:load_e_e();break;
+		case 0x5C:load_e_h();break;
+		case 0x5D:load_e_l();break;
+		case 0x5E:load_e_hl();break;
+		case 0x5F:load_e_a();break;
 
 		//60 - 6F
-		case 0x60:break;
-		case 0x61:break;
-		case 0x62:break;
-		case 0x63:break;
-		case 0x64:break;
-		case 0x65:break;
-		case 0x66:break;
-		case 0x67:break;
-		case 0x68:break;
-		case 0x69:break;
-		case 0x6A:break;
-		case 0x6B:break;
-		case 0x6C:break;
-		case 0x6D:break;
-		case 0x6E:break;
-		case 0x6F:break;
+		case 0x60:load_h_b();break;
+		case 0x61:load_h_c();break;
+		case 0x62:load_h_d();break;
+		case 0x63:load_h_e();break;
+		case 0x64:load_h_h();break;
+		case 0x65:load_h_l();break;
+		case 0x66:load_h_hl();break;
+		case 0x67:load_h_a();break;
+		case 0x68:load_l_b();break;
+		case 0x69:load_l_c();break;
+		case 0x6A:load_l_d();break;
+		case 0x6B:load_l_e();break;
+		case 0x6C:load_l_h();break;
+		case 0x6D:load_l_l();break;
+		case 0x6E:load_l_hl();break;
+		case 0x6F:load_l_a();break;
 
 		//70 - 7F
-		case 0x70:break;
-		case 0x71:break;
-		case 0x72:break;
-		case 0x73:break;
-		case 0x74:break;
-		case 0x75:break;
+		case 0x70:load_hl_b();break;
+		case 0x71:load_hl_c();break;
+		case 0x72:load_hl_d();break;
+		case 0x73:load_hl_e();break;
+		case 0x74:load_hl_h();break;
+		case 0x75:load_hl_l();break;
 		case 0x76:halt();break;
-		case 0x77:break;
-		case 0x78:break;
-		case 0x79:break;
-		case 0x7A:break;
-		case 0x7B:break;
-		case 0x7C:break;
-		case 0x7D:break;
-		case 0x7E:break;
-		case 0x7F:break;
+		case 0x77:load_hl_a();break;
+		case 0x78:load_a_b();break;
+		case 0x79:load_a_c();break;
+		case 0x7A:load_a_d();break;
+		case 0x7B:load_a_e();break;
+		case 0x7C:load_a_h();break;
+		case 0x7D:load_a_l();break;
+		case 0x7E:load_a_hl();break;
+		case 0x7F:load_a_a();break;
 
 		//80 - 8F
 		case 0x80:break;
