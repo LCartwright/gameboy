@@ -353,6 +353,7 @@ void CPU::load_c_h(){
 	++*pPC;
 	clock.cycle(CYCLE_4);
 }
+
 /* LOAD C, L 0x4D */
 void CPU::load_c_l(){
 	*pC = *pL;
@@ -702,6 +703,366 @@ void CPU::load_a_a(){
 	clock.cycle(CYCLE_4);
 }
 
+/* AND B 0xA0 */
+void CPU::and_b(){
+	*pA &= *pB;
+	if(*pA == 0){
+		flags.setZ();
+	}else{
+		flags.unSetZ();
+	}
+	flags.unSetN();
+	flags.setH();
+	flags.unSetC();
+	++*pPC;
+	clock.cycle(CYCLE_4);
+}
+
+/* AND C 0xA1 */
+void CPU::and_c(){
+	*pA &= *pC;
+	if(*pA == 0){
+		flags.setZ();
+	}else{
+		flags.unSetZ();
+	}
+	flags.unSetN();
+	flags.setH();
+	flags.unSetC();
+	++*pPC;
+	clock.cycle(CYCLE_4);
+}
+
+/* AND D 0xA2 */
+void CPU::and_d(){
+	*pA &= *pD;
+	if(*pA == 0){
+		flags.setZ();
+	}else{
+		flags.unSetZ();
+	}
+	flags.unSetN();
+	flags.setH();
+	flags.unSetC();
+	++*pPC;
+	clock.cycle(CYCLE_4);
+}
+
+/* AND E 0xA3 */
+void CPU::and_e(){
+	*pA &= *pE;
+	if(*pA == 0){
+		flags.setZ();
+	}else{
+		flags.unSetZ();
+	}
+	flags.unSetN();
+	flags.setH();
+	flags.unSetC();
+	++*pPC;
+	clock.cycle(CYCLE_4);
+}
+
+/* AND H 0xA4 */
+void CPU::and_h(){
+	*pA &= *pH;
+	if(*pA == 0){
+		flags.setZ();
+	}else{
+		flags.unSetZ();
+	}
+	flags.unSetN();
+	flags.setH();
+	flags.unSetC();
+	++*pPC;
+	clock.cycle(CYCLE_4);
+}
+
+/* AND L 0xA5 */
+void CPU::and_l(){
+	*pA &= *pL;
+	if(*pA == 0){
+		flags.setZ();
+	}else{
+		flags.unSetZ();
+	}
+	flags.unSetN();
+	flags.setH();
+	flags.unSetC();
+	++*pPC;
+	clock.cycle(CYCLE_4);
+}
+
+/* AND (HL) 0xA6 */
+void CPU::and_hl(){
+	*pA &= memory[*pHL];
+	if(*pA == 0){
+		flags.setZ();
+	}else{
+		flags.unSetZ();
+	}
+	flags.unSetN();
+	flags.setH();
+	flags.unSetC();
+	++*pPC;
+	clock.cycle(CYCLE_8);
+}
+
+/* AND A 0xA7 */
+void CPU::and_a(){
+	*pA &= *pA;
+	if(*pA == 0){
+		flags.setZ();
+	}else{
+		flags.unSetZ();
+	}
+	flags.unSetN();
+	flags.setH();
+	flags.unSetC();
+	++*pPC;
+	clock.cycle(CYCLE_4);
+}
+
+/* XOR B 0xA8 */
+void CPU::xor_b(){
+	*pA ^= *pB;
+	if(*pA == 0){
+		flags.setZ();
+	}else{
+		flags.unSetZ();
+	}
+	flags.unSetN();
+	flags.unSetH();
+	flags.unSetC();
+	++*pPC;
+	clock.cycle(CYCLE_4);
+}
+
+/* XOR C 0xA9 */
+void CPU::xor_c(){
+	*pA ^= *pC;
+	if(*pA == 0){
+		flags.setZ();
+	}else{
+		flags.unSetZ();
+	}
+	flags.unSetN();
+	flags.unSetH();
+	flags.unSetC();
+	++*pPC;
+	clock.cycle(CYCLE_4);
+}
+
+/* XOR D 0xAA */
+void CPU::xor_d(){
+	*pA ^= *pD;
+	if(*pA == 0){
+		flags.setZ();
+	}else{
+		flags.unSetZ();
+	}
+	flags.unSetN();
+	flags.unSetH();
+	flags.unSetC();
+	++*pPC;
+	clock.cycle(CYCLE_4);
+}
+
+/* XOR E 0xAB */
+void CPU::xor_e(){
+	*pA ^= *pE;
+	if(*pA == 0){
+		flags.setZ();
+	}else{
+		flags.unSetZ();
+	}
+	flags.unSetN();
+	flags.unSetH();
+	flags.unSetC();
+	++*pPC;
+	clock.cycle(CYCLE_4);
+}
+
+/* XOR H 0xAC */
+void CPU::xor_h(){
+	*pA ^= *pH;
+	if(*pA == 0){
+		flags.setZ();
+	}else{
+		flags.unSetZ();
+	}
+	flags.unSetN();
+	flags.unSetH();
+	flags.unSetC();
+	++*pPC;
+	clock.cycle(CYCLE_4);
+}
+
+/* XOR L 0xAD */
+void CPU::xor_l(){
+	*pA ^= *pL;
+	if(*pA == 0){
+		flags.setZ();
+	}else{
+		flags.unSetZ();
+	}
+	flags.unSetN();
+	flags.unSetH();
+	flags.unSetC();
+	++*pPC;
+	clock.cycle(CYCLE_4);
+}
+
+/* XOR (HL) 0xAE */
+void CPU::xor_hl(){
+	*pA ^= memory[*pHL];
+	if(*pA == 0){
+		flags.setZ();
+	}else{
+		flags.unSetZ();
+	}
+	flags.unSetN();
+	flags.unSetH();
+	flags.unSetC();
+	++*pPC;
+	clock.cycle(CYCLE_8);
+}
+
+/* XOR A 0xAF */
+void CPU::xor_a(){
+	*pA ^= *pA;
+	if(*pA == 0){
+		flags.setZ();
+	}else{
+		flags.unSetZ();
+	}
+	flags.unSetN();
+	flags.unSetH();
+	flags.unSetC();
+	++*pPC;
+	clock.cycle(CYCLE_4);
+}
+
+/* OR B 0xB0 */
+void CPU::or_b(){
+	*pA |= *pB;
+	if(*pA == 0){
+		flags.setZ();
+	}else{
+		flags.unSetZ();
+	}
+	flags.unSetN();
+	flags.unSetH();
+	flags.unSetC();
+	++*pPC;
+	clock.cycle(CYCLE_4);
+}
+
+/* OR C 0xB1 */
+void CPU::or_c(){
+	*pA |= *pC;
+	if(*pA == 0){
+		flags.setZ();
+	}else{
+		flags.unSetZ();
+	}
+	flags.unSetN();
+	flags.unSetH();
+	flags.unSetC();
+	++*pPC;
+	clock.cycle(CYCLE_4);
+}
+
+/* OR D 0xB2 */
+void CPU::or_d(){
+	*pA |= *pD;
+	if(*pA == 0){
+		flags.setZ();
+	}else{
+		flags.unSetZ();
+	}
+	flags.unSetN();
+	flags.unSetH();
+	flags.unSetC();
+	++*pPC;
+	clock.cycle(CYCLE_4);
+}
+
+/* OR E 0xB3 */
+void CPU::or_e(){
+	*pA |= *pE;
+	if(*pA == 0){
+		flags.setZ();
+	}else{
+		flags.unSetZ();
+	}
+	flags.unSetN();
+	flags.unSetH();
+	flags.unSetC();
+	++*pPC;
+	clock.cycle(CYCLE_4);
+}
+
+/* OR H 0xB4 */
+void CPU::or_h(){
+	*pA |= *pH;
+	if(*pA == 0){
+		flags.setZ();
+	}else{
+		flags.unSetZ();
+	}
+	flags.unSetN();
+	flags.unSetH();
+	flags.unSetC();
+	++*pPC;
+	clock.cycle(CYCLE_4);
+}
+
+/* OR L 0xB5 */
+void CPU::or_l(){
+	*pA |= *pL;
+	if(*pA == 0){
+		flags.setZ();
+	}else{
+		flags.unSetZ();
+	}
+	flags.unSetN();
+	flags.unSetH();
+	flags.unSetC();
+	++*pPC;
+	clock.cycle(CYCLE_4);
+}
+
+/* OR (HL) 0xB6 */
+void CPU::or_hl(){
+	*pA |= memory[*pHL];
+	if(*pA == 0){
+		flags.setZ();
+	}else{
+		flags.unSetZ();
+	}
+	flags.unSetN();
+	flags.unSetH();
+	flags.unSetC();
+	++*pPC;
+	clock.cycle(CYCLE_8);
+}
+
+/* OR A 0xB7 */
+void CPU::or_a(){
+	*pA |= *pA;
+	if(*pA == 0){
+		flags.setZ();
+	}else{
+		flags.unSetZ();
+	}
+	flags.unSetN();
+	flags.unSetH();
+	flags.unSetC();
+	++*pPC;
+	clock.cycle(CYCLE_4);
+}
+
 void CPU::decode(uint8_t opcode){
 	switch (opcode){
 		//00 - 0F
@@ -885,32 +1246,32 @@ void CPU::decode(uint8_t opcode){
 		case 0x9F:break;
 
 		//A0 - AF
-		case 0xA0:break;
-		case 0xA1:break;
-		case 0xA2:break;
-		case 0xA3:break;
-		case 0xA4:break;
-		case 0xA5:break;
-		case 0xA6:break;
-		case 0xA7:break;
-		case 0xA8:break;
-		case 0xA9:break;
-		case 0xAA:break;
-		case 0xAB:break;
-		case 0xAC:break;
-		case 0xAD:break;
-		case 0xAE:break;
-		case 0xAF:break;
+		case 0xA0:and_b();break;
+		case 0xA1:and_c();break;
+		case 0xA2:and_d();break;
+		case 0xA3:and_e();break;
+		case 0xA4:and_h();break;
+		case 0xA5:and_l();break;
+		case 0xA6:and_hl();break;
+		case 0xA7:and_a();break;
+		case 0xA8:xor_b();break;
+		case 0xA9:xor_c();break;
+		case 0xAA:xor_d();break;
+		case 0xAB:xor_e();break;
+		case 0xAC:xor_h();break;
+		case 0xAD:xor_l();break;
+		case 0xAE:xor_hl();break;
+		case 0xAF:xor_a();break;
 
 		//B0 - BF
-		case 0xB0:break;
-		case 0xB1:break;
-		case 0xB2:break;
-		case 0xB3:break;
-		case 0xB4:break;
-		case 0xB5:break;
-		case 0xB6:break;
-		case 0xB7:break;
+		case 0xB0:or_b();break;
+		case 0xB1:or_c();break;
+		case 0xB2:or_d();break;
+		case 0xB3:or_e();break;
+		case 0xB4:or_h();break;
+		case 0xB5:or_l();break;
+		case 0xB6:or_hl();break;
+		case 0xB7:or_a();break;
 		case 0xB8:break;
 		case 0xB9:break;
 		case 0xBA:break;

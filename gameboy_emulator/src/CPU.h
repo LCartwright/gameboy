@@ -175,6 +175,35 @@ class CPU {
 	void load_a_hl();
 	void load_a_a();
 
+	void and_b();
+	void and_c();
+	void and_d();
+	void and_e();
+	void and_h();
+	void and_l();
+	void and_hl();
+	void and_a();
+
+	void xor_b();
+	void xor_c();
+	void xor_d();
+	void xor_e();
+	void xor_h();
+	void xor_l();
+	void xor_hl();
+	void xor_a();
+
+	void or_b();
+	void or_c();
+	void or_d();
+	void or_e();
+	void or_h();
+	void or_l();
+	void or_hl();
+	void or_a();
+
+
+
 public:
 	CPU();
 	virtual ~CPU();
