@@ -263,6 +263,123 @@ void CPU::inc_sp(){
 	clock.cycle(CYCLE_8);
 }
 
+/* LOAD BC 16bit 0x01 */
+void CPU::load_bc_d16(){
+	*pB = memory[++*pPC];
+	*pC = memory[++*pPC];
+	++*pPC;
+	clock.cycle(CYCLE_12);
+}
+
+/* LOAD DE 16bit 0x11 */
+void CPU::load_de_d16(){
+	*pD = memory[++*pPC];
+	*pE = memory[++*pPC];
+	++*pPC;
+	clock.cycle(CYCLE_12);
+}
+
+/* LOAD HL 16bit 0x21 */
+void CPU::load_hl_d16(){
+	*pH = memory[++*pPC];
+	*pL = memory[++*pPC];
+	++*pPC;
+	clock.cycle(CYCLE_12);
+}
+
+/* LOAD SP 16bit 0x31 */
+void CPU::load_sp_d16(){
+	uint8_t high = memory[++*pPC];
+	uint8_t low = memory[++*pPC];
+	*pSP = high << low;
+	++*pPC;
+	clock.cycle(CYCLE_12);
+}
+
+/* LOAD BC A 0x02 */
+void CPU::load_bc_a(){
+	memory[*pBC] = *pA;
+	++*pPC;
+	clock.cycle(CYCLE_8);
+}
+
+/* LOAD DE A 0x12 */
+void CPU::load_de_a(){
+	memory[*pDE] = *pA;
+	++*pPC;
+	clock.cycle(CYCLE_8);
+}
+
+/* LOAD B d8 0x06 */
+void CPU::load_b_d8(){
+	*pB = memory[++*pPC];
+	++*pPC;
+	clock.cycle(CYCLE_8);
+}
+
+/* LOAD D d8 0x16 */
+void CPU::load_d_d8(){
+	*pD = memory[++*pPC];
+	++*pPC;
+	clock.cycle(CYCLE_8);
+}
+
+/* LOAD H d8 0x26 */
+void CPU::load_h_d8(){
+	*pH = memory[++*pPC];
+	++*pPC;
+	clock.cycle(CYCLE_8);
+}
+
+/* LOAD (HL) d8 0x36 */
+void CPU::load_hl_d8(){
+	memory[*pHL] = memory[++*pPC];
+	++*pPC;
+	clock.cycle(CYCLE_12);
+}
+
+/* LOAD A (BC) 0x0A */
+void CPU::load_a_bc(){
+	*pA = memory[*pBC];
+	++*pPC;
+	clock.cycle(CYCLE_8);
+}
+
+/* LOAD A (BC) 0x1A */
+void CPU::load_a_de(){
+	*pA = memory[*pDE];
+	++*pPC;
+	clock.cycle(CYCLE_8);
+}
+
+/* LOAD C d8 0x0E */
+void CPU::load_c_d8(){
+	*pC = memory[++*pPC];
+	++*pPC;
+	clock.cycle(CYCLE_8);
+}
+
+/* LOAD E d8 0x1E */
+void CPU::load_e_d8(){
+	*pE = memory[++*pPC];
+	++*pPC;
+	clock.cycle(CYCLE_8);
+}
+
+/* LOAD L d8 0x2E */
+void CPU::load_l_d8(){
+	*pL = memory[++*pPC];
+	++*pPC;
+	clock.cycle(CYCLE_8);
+}
+
+/* LOAD A d8 0x3E */
+void CPU::load_a_d8(){
+	*pA = memory[++*pPC];
+	++*pPC;
+	clock.cycle(CYCLE_8);
+}
+
 /* LOAD B, B 0x40 */
 void CPU::load_b_b(){
 	//B will always be B
@@ -1067,48 +1184,48 @@ void CPU::decode(uint8_t opcode){
 	switch (opcode){
 		//00 - 0F
 		case 0x00:nop();break;
-		case 0x01:break;
-		case 0x02:break;
+		case 0x01:load_bc_d16();break;
+		case 0x02:load_bc_a();break;
 		case 0x03:inc_bc();break;
 		case 0x04:break;
 		case 0x05:break;
-		case 0x06:break;
+		case 0x06:load_b_d8();break;
 		case 0x07:break;
 		case 0x08:break;
 		case 0x09:break;
-		case 0x0A:break;
+		case 0x0A:load_a_bc();break;
 		case 0x0B:dec_bc();break;
 		case 0x0C:break;
 		case 0x0D:break;
-		case 0x0E:break;
+		case 0x0E:load_c_d8();break;
 		case 0x0F:break;
 
 		//10 - 1F
 		case 0x10:stop();break;
-		case 0x11:break;
-		case 0x12:break;
+		case 0x11:load_de_d16();break;
+		case 0x12:load_de_a();break;
 		case 0x13:inc_de();break;
 		case 0x14:break;
 		case 0x15:break;
-		case 0x16:break;
+		case 0x16:load_d_d8();break;
 		case 0x17:break;
 		case 0x18:break;
 		case 0x19:break;
-		case 0x1A:break;
+		case 0x1A:load_a_de();break;
 		case 0x1B:dec_de();break;
 		case 0x1C:break;
 		case 0x1D:break;
-		case 0x1E:break;
+		case 0x1E:load_e_d8();break;
 		case 0x1F:break;
 
 		//20 - 2F
 		case 0x20:break;
-		case 0x21:break;
+		case 0x21:load_hl_d16();break;
 		case 0x22:break;
 		case 0x23:inc_hl();break;
 		case 0x24:break;
 		case 0x25:break;
-		case 0x26:break;
+		case 0x26:load_h_d8();break;
 		case 0x27:break;
 		case 0x28:break;
 		case 0x29:break;
@@ -1116,17 +1233,17 @@ void CPU::decode(uint8_t opcode){
 		case 0x2B:dec_hl();break;
 		case 0x2C:break;
 		case 0x2D:break;
-		case 0x2E:break;
+		case 0x2E:load_l_d8();break;
 		case 0x2F:break;
 
 		//30 - 3F
 		case 0x30:break;
-		case 0x31:break;
+		case 0x31:load_sp_d16();break;
 		case 0x32:break;
 		case 0x33:inc_sp();break;
 		case 0x34:break;
 		case 0x35:break;
-		case 0x36:break;
+		case 0x36:load_hl_d8();break;
 		case 0x37:break;
 		case 0x38:break;
 		case 0x39:break;
@@ -1134,7 +1251,7 @@ void CPU::decode(uint8_t opcode){
 		case 0x3B:dec_sp();break;
 		case 0x3C:break;
 		case 0x3D:break;
-		case 0x3E:break;
+		case 0x3E:load_a_d8();break;
 		case 0x3F:break;
 
 		//40 - 4F

@@ -104,6 +104,27 @@ class CPU {
 	void dec_hl();
 	void dec_sp();
 
+	void load_bc_d16();
+	void load_de_d16();
+	void load_hl_d16();
+	void load_sp_d16();
+
+	void load_b_d8();
+	void load_d_d8();
+	void load_h_d8();
+	void load_hl_d8();
+
+	void load_bc_a();
+	void load_de_a();
+
+	void load_a_bc();
+	void load_a_de();
+
+	void load_c_d8();
+	void load_e_d8();
+	void load_l_d8();
+	void load_a_d8();
+
 	void load_b_b();
 	void load_b_c();
 	void load_b_d();
